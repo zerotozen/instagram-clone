@@ -1,0 +1,4 @@
+/* todo lo que se ponga aqui ira al app.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
