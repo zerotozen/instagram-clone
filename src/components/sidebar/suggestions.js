@@ -17,7 +17,7 @@ function Suggestions({ currentUserId, following, currentUserDocId }) {
       suggestedProfiles();
     }
   }, [currentUserId]);
-  console.log("profilesssssssssss", profiles);
+
   return !profiles ? (
     <Skeleton count={1} height={150} className="mt-5" />
   ) : profiles.length > 0 ? (
@@ -44,7 +44,7 @@ function Suggestions({ currentUserId, following, currentUserDocId }) {
 Suggestions.propTypes = {
   userId: PropTypes.string,
   followoing: PropTypes.array,
-  loggedInUserDocId: PropTypes.string,
+  currentUserDocId: PropTypes.string,
 };
 
 export default Suggestions;

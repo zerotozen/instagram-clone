@@ -10,6 +10,20 @@ export async function doesUsernameExist(username) {
   return result.docs.length > 0;
 }
 
+export async function getUserByUsername(username) {
+
+  const result = await firebase
+    .firestore()
+    .collection("users")
+    .where("username", "==", username)
+    .get();
+
+  return result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id,
+  }));
+}
+
 // get user from the firestore where userId = userId (from auth)
 export async function getUserByUserId(userId) {
   const result = await firebase
@@ -27,7 +41,7 @@ export async function getUserByUserId(userId) {
 }
 
 export async function getSuggestedProfiles(currentUserId, following) {
-  console.log("USER ID AQUI", currentUserId);
+
   const result = await firebase.firestore().collection("users").limit(10).get();
 
   return result.docs
@@ -40,7 +54,7 @@ export async function getSuggestedProfiles(currentUserId, following) {
 }
 
 export async function updateMyFollowingArray(userDocId, currentUserId) {
-  console.log("Estoy dentro", userDocId);
+
   const result = await firebase
     .firestore()
     .collection("users")
@@ -89,6 +103,7 @@ export async function updateFollowedUserFollowers(
 }
 
 export async function getPhotos(userId, following) {
+ 
   const result = await firebase
     .firestore()
     .collection("photos")
@@ -113,4 +128,59 @@ export async function getPhotos(userId, following) {
     })
   );
   return photosWithUserDetails;
+}
+
+export async function getUserPhotosByUsername(username) {
+  const [user] = await getUserByUsername(username);
+  const result = await firebase
+    .firestore()
+    .collection("photos")
+    .where("userId", "==", user.userId)
+    .get();
+
+  return result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id,
+  }));
+}
+
+export async function isUserFollowingProfile(
+  loggedInUserUsername,
+  profileUserId
+) {
+  const result = await firebase
+    .firestore()
+    .collection("users")
+    .where("username", "==", loggedInUserUsername) // karl (active logged in user)
+    .where("following", "array-contains", profileUserId)
+    .get();
+
+  const [response = {}] = result.docs.map((item) => ({
+    ...item.data(),
+    docID: item.id,
+  }));
+  return response.userId;
+}
+
+export async function toggleFollow(
+  isFollowingProfile,
+  activeUserDocId,
+  profileDocId,
+  profileUserId,
+  followingUserId
+) {
+  //1 param -> my profile,
+  //2 param -> User i want to follow Id,
+  //3 param -> is the user following this profile?
+  await updateCurrentUserFollowing(
+    activeUserDocId,
+    profileUserId,
+    isFollowingProfile
+  );
+
+  await updateFollowedUserFollowers(
+    profileDocId,
+    followingUserId,
+    isFollowingProfile
+  );
 }

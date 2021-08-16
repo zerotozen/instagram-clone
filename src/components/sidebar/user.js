@@ -16,7 +16,7 @@ const User = ({ username, fullName }) => {
           <div className="flex items-center justify-between col-span-1">
             <img
               className="rounded-full h-14 w-14 flex mr-3 object-cover"
-              src={`/images/avatars/AlexFullStack.jpg`}
+              src={`/images/avatars/${username}.jpg`}
               alt=""
             />
           </div>

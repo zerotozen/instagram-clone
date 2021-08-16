@@ -4,13 +4,14 @@ import Header from "./header";
 import Image from "./image";
 import Actions from "./action";
 import Footer from "./footer";
+import Comments from "./comments";
 
 export default function Post({ content }) {
   //components
   // => header, image, actions (like and comment icons), footr, comments
-  const commmentInput = useRef(null);
+  const commentInput = useRef(null);
 
-  const handleFocus = () => commmentInput.current.handleFocus();
+  const handleFocus = () => commentInput.current.handleFocus();
 
   return (
     <div className="rounded col-span-4 border bg-white border-gray-primary mb-12">
@@ -23,6 +24,12 @@ export default function Post({ content }) {
         handleFocus={handleFocus}
       />
       <Footer caption={content.caption} username={content.username} />
+      <Comments
+        docId={content.docId}
+        comments={content.comments}
+        posted={content.dateCreated}
+        commentInput={commentInput}
+      />
     </div>
   );
 }
@@ -36,6 +43,6 @@ Post.propTypes = {
     userLikedPhoto: PropTypes.bool.isRequired,
     likes: PropTypes.array.isRequired,
     comments: PropTypes.array.isRequired,
-    dataCreated: PropTypes.number.isRequired,
+    dateCreated: PropTypes.number.isRequired,
   }),
 };

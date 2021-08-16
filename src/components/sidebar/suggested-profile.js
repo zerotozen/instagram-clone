@@ -65,7 +65,7 @@ export default function SuggestedProfile({
 SuggestedProfile.propTypes = {
   suggesteProfileDocId: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
-  profileId: PropTypes.string.isRequired,
-  userId: PropTypes.string.isRequired,
-  loggedInUserDocId: PropTypes.string.isRequired,
+  suggestedProfileId: PropTypes.string.isRequired,
+  currentUserId: PropTypes.string.isRequired,
+  currentUserDocId: PropTypes.string.isRequired,
 };
