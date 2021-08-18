@@ -6,7 +6,6 @@ import SuggestedProfile from "./suggested-profile";
 
 function Suggestions({ currentUserId, following, currentUserDocId }) {
   const [profiles, setProfiles] = useState(null);
-
   useEffect(() => {
     async function suggestedProfiles() {
       const response = await getSuggestedProfiles(currentUserId, following);
@@ -16,6 +15,7 @@ function Suggestions({ currentUserId, following, currentUserDocId }) {
     if (currentUserId) {
       suggestedProfiles();
     }
+    // eslint-disable-next-line
   }, [currentUserId]);
 
   return !profiles ? (

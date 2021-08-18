@@ -3,9 +3,6 @@ import PropTypes from "prop-types";
 import Header from "./header";
 import Photos from "./photos";
 import { getUserPhotosByUserId } from "../../services/firebase";
-import usePhotos from "../../hooks/use-photos";
-
-// import usePhotos from "../../hooks/use-photos";
 
 export default function UserProfile({ user }) {
   const reducer = (state, newState) => ({ ...state, ...newState });
@@ -19,11 +16,6 @@ export default function UserProfile({ user }) {
     initialState
   );
 
-  //ojo
-  const { photos } = usePhotos(user);
-
-  // const { photos } = usePhotos(user);
-
   useEffect(() => {
     async function getProfileInfoAndPhotos() {
       const photos = await getUserPhotosByUserId(user?.userId);
@@ -35,6 +27,7 @@ export default function UserProfile({ user }) {
       });
     }
     getProfileInfoAndPhotos();
+    // eslint-disable-next-line
   }, [user.username]);
 
   return (

@@ -62,7 +62,6 @@ export async function getSuggestedProfiles(currentUserId, following) {
       (profile) =>
         profile.userId !== currentUserId && !following.includes(profile.userId)
     );
-  return result;
 }
 
 export async function updateMyFollowingArray(userDocId, currentUserId) {
@@ -165,6 +164,7 @@ export async function getUserPhotosByUsernameAndPhotoId(
     .where("userId", "==", user.userId)
     .get();
 
+  // eslint-disable-next-line
   const photo = result.docs.map((item) => {
     if (item === photoProfileId) {
     }
