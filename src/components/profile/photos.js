@@ -1,7 +1,37 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import Skeleton from "react-loading-skeleton";
+import PopupCard from "./popup-card";
 
-export default function Photos({ photos }) {
+export default function Photos({ photos, user }) {
+  const [showPopupCard, setShowPopupCard] = useState(false);
+  const [selectedImage, setSelectedImage] = useState();
+  const [photoProfileId, setPhotoProfileId] = useState();
+  const [photoComments, setPhotoComments] = useState();
+  const [photoLikes, setPhotoLikes] = useState();
+  const [photoCaption, setPhotoCaption] = useState();
+  const [photoDocId, setPhotoDocId] = useState();
+  const [photoDateCreated, setPhotoDateCreated] = useState();
+
+  const handlePopupCard = (
+    imageSrc,
+    photoId,
+    comments,
+    likes,
+    caption,
+    docId,
+    dateCreated
+  ) => {
+    setShowPopupCard(!showPopupCard);
+    setSelectedImage(imageSrc);
+    setPhotoProfileId(photoId);
+    setPhotoComments(comments);
+    setPhotoLikes(likes);
+    setPhotoCaption(caption);
+    setPhotoDocId(docId);
+    setPhotoDateCreated(dateCreated);
+  };
+
   return (
     <div className="h-16 border-t border-gray-primary mt-12 pt-4">
       <div className="grid grid-cols-3 gap-8 mt-4 mb-12 m-10">
@@ -17,7 +47,20 @@ export default function Photos({ photos }) {
                 src={photo.imageSrc}
                 alt={photo.caption}
               />
-              <div className="absolute bottom-0 left-0 bg-gray-200 z-10 w-full justify-evenly items-center h-full bg-black-faded group-hover:flex hidden">
+              <div
+                className="absolute bottom-0 left-0 bg-gray-200 z-10 w-full justify-evenly items-center h-full bg-black-faded group-hover:flex hidden"
+                onClick={() =>
+                  handlePopupCard(
+                    photo.imageSrc,
+                    photo.photoId,
+                    photo.comments,
+                    photo.likes,
+                    photo.caption,
+                    photo.docId,
+                    photo.dateCreated
+                  )
+                }
+              >
                 <p className="flex items-center text-white font-bold">
                   {" "}
                   <svg
@@ -59,6 +102,20 @@ export default function Photos({ photos }) {
         (photos.length === 0 && (
           <p className="text-center text-2xl">No Post Yet</p>
         ))}
+      {showPopupCard ? (
+        <PopupCard
+          handlePopupCard={handlePopupCard}
+          user={user}
+          photos={photos}
+          imageSrc={selectedImage}
+          photoProfileId={photoProfileId}
+          photoComments={photoComments}
+          photoLikes={photoLikes}
+          photoCaption={photoCaption}
+          photoDocId={photoDocId}
+          photoDateCreated={photoDateCreated}
+        />
+      ) : null}
     </div>
   );
 }

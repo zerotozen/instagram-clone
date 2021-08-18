@@ -19,7 +19,7 @@ export default function AddComment({
   const handleSubmitComment = (event) => {
     event.preventDefault();
 
-    setComments([{ displayName, comment }, ...comments]);
+    setComments([...comments, { displayName, comment }]);
     setComment("");
 
     return firebase
@@ -44,7 +44,7 @@ export default function AddComment({
         <input
           arial-label="Add a comment"
           autoComplete="off"
-          className="text-sm text-gray-base w-full mr-3 py-5 px-4"
+          className="text-sm text-gray-base w-full mr-3 py-5 px-4 border-black border-1 outline-none"
           type="text"
           name="add-comment"
           placeholder="Add a comment..."
@@ -71,5 +71,5 @@ AddComment.propTypes = {
   docId: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
   setComments: PropTypes.func.isRequired,
-  commentInput: PropTypes.object,
+  commentInput: PropTypes.object.isRequired,
 };

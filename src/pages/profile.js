@@ -4,6 +4,7 @@ import { getUserByUsername } from "../services/firebase";
 import * as ROUTES from "../constants/routes";
 import Header from "../components/header";
 import UserProfile from "../components/profile/";
+import LoggedInUserContext from "../context/logged-user";
 
 export default function Profile() {
   const { username } = useParams();
@@ -24,15 +25,15 @@ export default function Profile() {
   }, [username, history]);
 
   return (
-    <>
+    <LoggedInUserContext.Provider value={{ user }}>
       {user?.username ? (
-        <div className="bg-gray-background">
+        <div className="bg-gray-background h-full">
           <Header />
           <div className="mx-auto max-w-screen.lg">
             <UserProfile user={user} />
           </div>
         </div>
       ) : null}
-    </>
+    </LoggedInUserContext.Provider>
   );
 }

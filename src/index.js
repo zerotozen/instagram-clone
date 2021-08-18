@@ -1,4 +1,4 @@
-import "./wdyr"
+import "./wdyr";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
@@ -12,11 +12,6 @@ ReactDOM.render(
   </FirebaseContext.Provider>,
   document.getElementById("root")
 );
-
-//client side render app: react(create react app)
-// data base Firebase
-// react-loading-skeleton
-// tailwind
 
 //folder structure
 //src

@@ -10,12 +10,13 @@ export default function Actions({
   handleFocus,
 }) {
   const {
-    user: { uid: userId = "" },
+    user: { uid: userId },
   } = useContext(UserContext);
 
   const [toggleLiked, setToggleLiked] = useState(likedPhoto);
   const [likes, setLikes] = useState(totalLikes);
   const { firebase, FieldValue } = useContext(FirebaseContext);
+
   const handleToggleLiked = async () => {
     setToggleLiked((toggleLiked) => !toggleLiked);
 
@@ -31,6 +32,9 @@ export default function Actions({
 
     setLikes((likes) => (toggleLiked ? likes - 1 : likes + 1));
   };
+
+
+
   return (
     <>
       <div className="flex justify-between p-4">
@@ -84,7 +88,7 @@ export default function Actions({
       </div>
       <div className="p-4 py-0">
         <p className="font-bold">
-          {likes === 1 ? `${likes} like` : `${likes} like`}
+          {likes === 1 ? `${likes} like` : `${likes} likes`}
         </p>
       </div>
     </>

@@ -10,8 +10,7 @@ export default function Post({ content }) {
   //components
   // => header, image, actions (like and comment icons), footr, comments
   const commentInput = useRef(null);
-
-  const handleFocus = () => commentInput.current.handleFocus();
+  const handleFocus = () => commentInput.current.focus();
 
   return (
     <div className="rounded col-span-4 border bg-white border-gray-primary mb-12">
